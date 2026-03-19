@@ -33,7 +33,7 @@
 
 | Home | Now Playing | Themes |
 |:----:|:-----------:|:------:|
-| ![Home](assets/screenshots/home.png) | ![Now Playing](assets/screenshots/nowplaying.png) | ![Themes](assets/screenshots/themes.png) |
+| ![Home](assets/screenshots/home.png) | ![Now Playing](assets/screenshots/nowplaying.png) | 
 
 </div>
 
@@ -78,9 +78,15 @@ Every theme is hand-crafted — not just a color swap. Pick your vibe.
 |:--------------:|:--------------:|:---------------:|
 | ![Powder Blue](assets/screenshots/themes/4.png) | ![Golden Hour](assets/screenshots/themes/5.png) | ![Arctic Pearl](assets/screenshots/themes/6.png) |
 
-| 🖼️ Toon Dark |
-|:------------:|
-| ![Toon Dark](assets/screenshots/themes/7.png) |
+| 🖼️ Toon Dark | 🎉 Toob Pop | 🌸 Cute Dark |
+|:------------:|:-----------:|:------------:|
+| ![Toon Dark](assets/screenshots/themes/7.png) | ![Toob Pop](assets/screenshots/themes/8.png) | ![Cute Dark](assets/screenshots/themes/9.png) |
+
+| 🍬 Cute Light | 💎 Crystal ✨ |
+|:-------------:|:-------------:|
+| ![Cute Light](assets/screenshots/themes/10.png) | ![Crystal](assets/screenshots/themes/11.png) |
+
+> 💎 **Crystal** is Seeky's signature theme — features a custom **live animated background** that reacts to your music in real time.
 
 </div>
 
