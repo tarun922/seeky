@@ -66,15 +66,23 @@ Hear something you don't recognise? Press `[R]` anywhere in the player — Seeky
 
 ### 🎨 7 Hand-Crafted Themes
 
-| Theme | Vibe |
-|-------|------|
-| 🌌 Midnight Aurora | Deep navy + purple glow |
-| 🕳️ Cosmic Void | Pure black, electric accents |
-| 🔴 Molten Obsidian | Dark + red-orange fire |
-| 🔵 Powder Blue | Soft pastel daylight |
-| 🌅 Golden Hour | Warm amber sunset |
-| ⬜ Arctic Pearl | Clean, near-white minimal |
-| 🖼️ Toon Dark | Comic-style outlined UI |
+Every theme is hand-crafted — not just a color swap. Pick your vibe.
+
+<div align="center">
+
+| 🌌 Midnight Aurora | 🕳️ Cosmic Void | 🔴 Molten Obsidian |
+|:------------------:|:--------------:|:------------------:|
+| ![Midnight Aurora](assets/screenshots/themes/1.png) | ![Cosmic Void](assets/screenshots/themes/2.png) | ![Molten Obsidian](assets/screenshots/themes/3.png) |
+
+| 🔵 Powder Blue | 🌅 Golden Hour | ⬜ Arctic Pearl |
+|:--------------:|:--------------:|:---------------:|
+| ![Powder Blue](assets/screenshots/themes/4.png) | ![Golden Hour](assets/screenshots/themes/5.png) | ![Arctic Pearl](assets/screenshots/themes/6.png) |
+
+| 🖼️ Toon Dark |
+|:------------:|
+| ![Toon Dark](assets/screenshots/themes/7.png) |
+
+</div>
 
 ### 📊 Wrapped — Year-Round Stats
 Top artists, top tracks, listening streaks, total hours. Available any time — not just December.
