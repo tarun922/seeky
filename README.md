@@ -28,6 +28,16 @@
 
 <br/>
 
+### 🔓 Road to Open Source
+
+> **If this repo hits 2,000 ⭐, Seeky goes open source.**
+> The full source code will be released, including the powerful **Smart Feed** generator.
+
+[![Stars](https://img.shields.io/github/stars/tarun922/seeky?style=for-the-badge&color=yellow&label=Stars)](https://github.com/tarun922/seeky/stargazers)
+&nbsp;→&nbsp; **Goal: 2,000**
+
+<br/>
+
 <!-- Replace with a short GIF of theme switching + Now Playing (ScreenToGif / Peek / Kap) -->
 <!-- ![Seeky demo](assets/screenshots/demo.gif) -->
 
@@ -164,6 +174,7 @@ Free tier: 1,000 identifications per day.
 - [ ] Plugin marketplace
 - [ ] Collaborative playlists
 - [ ] Tidal / Apple Music import
+- [ ] 🔓 Open-source release at 2,000 ⭐
 
 Have an idea? [Open an issue](https://github.com/tarun922/seeky/issues) or suggest it on [Discord](https://discord.gg/Tjv3pa3PU9).
 
@@ -187,7 +198,7 @@ Fully, for local files. YouTube playback and Spotify import need internet.
 Seeky doesn't send your library or listening data anywhere. Song ID and Discord RPC only activate when you enable them.
 
 **Where's the source code?**
-Seeky is currently closed-source. Plugins are supported today, and a public plugin API and community extensions are planned.
+Seeky is currently closed-source. If this repo reaches **2,000 stars**, the full source code, including the Smart Feed generator, will be open-sourced. Plugins are supported today, and a public plugin API and community extensions are planned.
 
 ---
 
