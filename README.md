@@ -138,7 +138,7 @@ Seeky supports plugins, so the app can do more than play music.
 |:------------------------:|:------------------------:|
 | ![Anime home](assets/screenshots/plugins/anime-home.png) | ![Anime detail](assets/screenshots/plugins/anime-detail.png) |
 
-| Anime: Player | Movie Search |
+| Anime: Player | UI  |
 |:-------------:|:------------:|
 | ![Anime player](assets/screenshots/plugins/anime-player.png) | ![UI](assets/screenshots/plugins/ui.png) |
 
