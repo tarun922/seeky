@@ -4,36 +4,34 @@
 
 # Seeky
 
-**The music player that actually gets you.**
+**One free desktop player for your local files, YouTube playlists, and Spotify imports.**
 
 [![Latest Release](https://img.shields.io/github/v/release/tarun922/seeky?style=for-the-badge&color=8B5CF6&label=Download)](https://github.com/tarun922/seeky/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](#-installation)
-[![Discord](https://img.shields.io/discord/yuno_7012?style=for-the-badge&color=5865F2&label=Discord)](https://discord.gg/Tjv3pa3PU9)
+[![Discord](https://img.shields.io/badge/Discord-Join%20us-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/Tjv3pa3PU9)
 [![GitHub Stars](https://img.shields.io/github/stars/tarun922/seeky?style=for-the-badge&color=yellow)](https://github.com/tarun922/seeky/stargazers)
 
 <br/>
 
-> Spotify imports. YouTube playlists. Local files. Live lyrics. Shazam. Discord RPC.  
-> All in one gorgeous desktop app — **free, forever.**
+> Spotify imports. YouTube playlists. Local files. Live lyrics. Song ID. Discord RPC.
+> All in one gorgeous desktop app. **Free, no ads, no account.**
 
 <br/>
 
-[**⬇️ Download for Windows**](https://github.com/tarun922/seeky/releases/latest/download/Seeky-Setup-x.x.x.exe) &nbsp;·&nbsp;
-[**macOS**](https://github.com/tarun922/seeky/releases/latest/download/Seeky-x.x.x.dmg) &nbsp;·&nbsp;
-[**Linux**](https://github.com/tarun922/seeky/releases/latest)
+[**⬇️ Download**](https://github.com/tarun922/seeky/releases/latest) &nbsp;·&nbsp;
+[Installation](#-installation) &nbsp;·&nbsp;
+[Features](#-features) &nbsp;·&nbsp;
+[Roadmap](#%EF%B8%8F-roadmap) &nbsp;·&nbsp;
+[Discord](https://discord.gg/Tjv3pa3PU9)
 
 <br/>
 
-<!--
-  DROP YOUR SCREENSHOTS HERE
-  Save them to assets/screenshots/ in this repo, then update the paths below.
-  Tip: an animated GIF of themes switching = instant virality
-  Tools: ScreenToGif (Windows), Peek (Linux), Kap (macOS)
--->
+<!-- Replace with a short GIF of theme switching + Now Playing (ScreenToGif / Peek / Kap) -->
+<!-- ![Seeky demo](assets/screenshots/demo.gif) -->
 
-| Home | Now Playing | Themes |
-|:----:|:-----------:|:------:|
-| ![Home](assets/screenshots/home.png) | ![Now Playing](assets/screenshots/nowplaying.png) | 
+| Home | Now Playing |
+|:----:|:-----------:|
+| ![Home](assets/screenshots/home.png) | ![Now Playing](assets/screenshots/nowplaying.png) |
 
 </div>
 
@@ -41,32 +39,36 @@
 
 ## ✨ Why Seeky?
 
-Every music app makes you pick a lane — *local only* or *streaming only*. Seeky does both. It's a free, offline-first desktop music hub that pulls everything into one place without the monthly bill.
+Most music apps make you pick a lane: *local only* or *streaming only*. Seeky does both. It's a free, offline-first desktop music hub that pulls everything into one library without the monthly bill.
 
-No account required. No ads. No upsells. Just music.
+- **Zero effort listening**: play one song and the Smart Feed keeps the music going
+- **No account required**
+- **No ads, no upsells**
+- **Private by default**: your library and listening data stay on your machine
 
 ---
 
 ## 🎯 Features
 
-### 🎵 Play Everything
-Local files, YouTube streams, Spotify-imported playlists — all in one unified library. Supports `mp3`, `flac`, `opus`, `ogg`, `wav` and more.
+| | |
+|---|---|
+| 🌊 **Smart Feed** | Play one song and let Seeky do the rest. The feed generator builds an endless queue from your first pick, so you never have to curate a playlist. |
+| 🎵 **Play everything** | Local files, YouTube streams, and Spotify-imported playlists in one library. Supports `mp3`, `flac`, `opus`, `ogg`, `wav` and more. |
+| 📥 **Spotify import** | Bring your playlists over, subscription or not. |
+| 📺 **YouTube playlists** | Paste a playlist URL and play it like a local playlist, with caching for skip-free listening. |
+| 🎤 **Live synced lyrics** | Scrolling lyrics on the Now Playing screen. |
+| 🕵️ **Song ID** | Press `R` anywhere in the player. Seeky records 8 seconds from your mic and identifies the track via ACRCloud. |
+| 📊 **Wrapped, all year** | Top artists, top tracks, listening streaks, total hours. Any time, not just December. |
+| 🎮 **Gamer Mode** | Auto-ducks music volume when game audio kicks in. |
+| 💬 **Discord Rich Presence** | Shows song, artist, album art, and play state on your profile. |
+| 📱 **Mobile remote** | Open Seeky's remote URL on your phone (same Wi-Fi) to control playback. |
+| 🪟 **Mini player** | Always-on-top compact controls. |
+| ↔️ **Crossfade & visualizer** | Smooth transitions and a real-time visualizer. |
+| 🔌 **Plugin system** | Gamer Mode ships built in, with community plugins planned. |
 
-### 📥 Spotify Import
-Import your Spotify playlists directly into Seeky. Your library follows you, subscription or not.
+### 🎨 11 Hand-Crafted Themes
 
-### 📺 YouTube Playlists
-Paste any YouTube playlist URL and play it like a local playlist, with smooth caching for skip-free listening.
-
-### 🎤 Live Synced Lyrics
-Scrolling lyrics on the Now Playing screen. Never miss a word.
-
-### 🕵️ Shazam / Song ID
-Hear something you don't recognise? Press `[R]` anywhere in the player — Seeky records 8 seconds from your mic and identifies the track instantly via ACRCloud.
-
-### 🎨 7 Hand-Crafted Themes
-
-Every theme is hand-crafted — not just a color swap. Pick your vibe.
+Every theme is hand-crafted, not just a color swap.
 
 <div align="center">
 
@@ -86,72 +88,55 @@ Every theme is hand-crafted — not just a color swap. Pick your vibe.
 |:-------------:|:-------------:|
 | ![Cute Light](assets/screenshots/themes/10.png) | ![Crystal](assets/screenshots/themes/11.png) |
 
-> 💎 **Crystal** is Seeky's signature theme — features a custom **live animated background** that reacts to your music in real time.
+> 💎 **Crystal** is Seeky's signature theme, with a custom **live animated background** that reacts to your music in real time.
 
 </div>
-
-### 📊 Wrapped — Year-Round Stats
-Top artists, top tracks, listening streaks, total hours. Available any time — not just December.
-
-### 🎮 Gamer Mode
-Auto-ducks music volume when game audio kicks in. Never fumble with the mixer mid-match again.
-
-### 💬 Discord Rich Presence
-Your Discord status shows what you're listening to — song, artist, album art, play state.
-
-### 📱 Mobile Remote
-Open Seeky's remote URL on your phone (same Wi-Fi) to control playback without touching your PC.
-
-### 🎵 Mini Player
-An always-on-top compact player for when you want controls without the full window.
-
-### 🔌 Plugin System
-Extend Seeky with community-built plugins. Gamer Mode ships built-in — more coming.
-
-### ↔️ Crossfade & Visualizer
-Smooth crossfade between tracks and a real-time audio visualizer on the Now Playing screen.
 
 ---
 
 ## 📦 Installation
 
+Grab the latest build from the [Releases page](https://github.com/tarun922/seeky/releases/latest).
+
 ### Windows
-1. Download `Seeky-Setup-x.x.x.exe` from [Releases](https://github.com/tarun922/seeky/releases/latest)
-2. Run the installer — done
+1. Download the `.exe` installer
+2. Run it. Done.
 
 ### macOS
-1. Download `Seeky-x.x.x.dmg`
-2. Open and drag Seeky to Applications
-3. First launch: right-click → Open to bypass Gatekeeper
+1. Download the `.dmg`
+2. Drag Seeky to Applications
+3. First launch: right-click → **Open** to get past Gatekeeper
 
-### Linux — AppImage
+### Linux
+
+**AppImage**
 ```bash
 chmod +x Seeky-x.x.x.AppImage
 ./Seeky-x.x.x.AppImage
 ```
 
-### Linux — deb
+**deb**
 ```bash
 sudo dpkg -i seeky_x.x.x_amd64.deb
 ```
 
-> Seeky checks for updates automatically on launch and installs them silently.
+> Seeky checks for updates on launch and installs them silently.
 
 ---
 
 ## 🔧 Setup Guides
 
-### Song ID (Shazam)
-1. Free account at [ACRCloud](https://www.acrcloud.com/)
-2. Create a project → copy Host, Key, Secret
-3. Seeky → Settings → Integrations → ACRCloud
+### Song ID
+1. Create a free account at [ACRCloud](https://www.acrcloud.com/)
+2. Create a project and copy the **Host**, **Key**, and **Secret**
+3. In Seeky: **Settings → Integrations → ACRCloud**
 
-Free tier: 1,000 identifications/day.
+Free tier: 1,000 identifications per day.
 
 ### Discord Rich Presence
-1. [Discord Developer Portal](https://discord.com/developers/applications) → New Application
-2. Copy the Application ID
-3. Seeky → Settings → Discord → paste Client ID
+1. Open the [Discord Developer Portal](https://discord.com/developers/applications) and create a **New Application**
+2. Copy the **Application ID**
+3. In Seeky: **Settings → Discord** and paste it as the Client ID
 
 ---
 
@@ -159,8 +144,8 @@ Free tier: 1,000 identifications/day.
 
 - [ ] Last.fm scrobbling
 - [ ] Equalizer
-- [ ] Plugin marketplace
 - [ ] Sleep timer
+- [ ] Plugin marketplace
 - [ ] Collaborative playlists
 - [ ] Tidal / Apple Music import
 
@@ -168,18 +153,24 @@ Have an idea? [Open an issue](https://github.com/tarun922/seeky/issues) or sugge
 
 ---
 
+## 🐛 Found a bug?
+
+[Open an issue](https://github.com/tarun922/seeky/issues/new) and include your OS, Seeky version, and what you were doing when it happened. Screenshots help.
+
+---
+
 ## ❓ FAQ
 
-**Is it really free?**  
+**Is it really free?**
 Yes. No ads, no subscription, no account needed for core features.
 
-**Does it work offline?**  
-Fully, for local files. YouTube and Spotify import require internet.
+**Does it work offline?**
+Fully, for local files. YouTube playback and Spotify import need internet.
 
-**Is my data private?**  
+**Is my data private?**
 Seeky doesn't send your library or listening data anywhere. Song ID and Discord RPC only activate when you enable them.
 
-**Where's the source code?**  
+**Where's the source code?**
 Seeky is currently closed-source. A plugin API and community extensions are planned.
 
 ---
@@ -190,6 +181,6 @@ Made with ❤️ and way too many late nights.
 
 **[⭐ Star this repo if Seeky made your day better](https://github.com/tarun922/seeky)**
 
-*Seeky is not affiliated with Spotify, YouTube, or Discord.*
+*Seeky is not affiliated with Spotify, YouTube, Discord, or ACRCloud.*
 
 </div>
