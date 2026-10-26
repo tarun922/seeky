@@ -10,6 +10,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](#-installation)
 [![Discord](https://img.shields.io/badge/Discord-Join%20us-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/Tjv3pa3PU9)
 [![GitHub Stars](https://img.shields.io/github/stars/tarun922/seeky?style=for-the-badge&color=yellow)](https://github.com/tarun922/seeky/stargazers)
+[![Total Downloads](https://img.shields.io/github/downloads/tarun922/seeky/total?style=for-the-badge&color=22c55e&label=Downloads)](https://github.com/tarun922/seeky/releases)
 
 <br/>
 
