@@ -15,12 +15,13 @@
 <br/>
 
 > Spotify imports. YouTube playlists. Local files. Live lyrics. Song ID. Discord RPC.
-> Plugins that search anime and movies.
+> Plugins that search and watch anime and movies.
 > All in one gorgeous desktop app. **Free, no ads, no account.**
 
 <br/>
 
 [**⬇️ Download**](https://github.com/tarun922/seeky/releases/latest) &nbsp;·&nbsp;
+[What's new](#-whats-new) &nbsp;·&nbsp;
 [Installation](#-installation) &nbsp;·&nbsp;
 [Features](#-features) &nbsp;·&nbsp;
 [Plugins](#-plugins) &nbsp;·&nbsp;
@@ -47,6 +48,19 @@
 | ![Home](assets/screenshots/home.png) | ![Now Playing](assets/screenshots/nowplaying.png) |
 
 </div>
+
+---
+
+## 🆕 What's new
+
+**Latest: [v2.0.5](https://github.com/tarun922/seeky/releases/tag/v2.0.5)**
+
+- 🎌 **Seeky Anime**, a new built-in plugin: browse Trending, Popular, Seasonal and Schedule, then watch with SUB/DUB, subtitles and playback speed, all inside Seeky.
+- 📥 **Downloads and offline library**: pick 1080p / 720p / 480p / 360p or audio only, download single episodes or whole batches, and play them offline from *Stored Anime*.
+- 📋 **My List and Continue Watching**: track Watching / Completed / Plan to Watch / On Hold / Dropped, and resume exactly where you left off.
+- 🛠️ **Reliability and plugin system**: longer timeouts and a live "Starting server…" counter for slow cold starts, automatic port-conflict handling, and plugin files now load in the right order.
+
+[Full release notes →](https://github.com/tarun922/seeky/releases/latest)
 
 ---
 
@@ -78,7 +92,7 @@ Most music apps make you pick a lane: *local only* or *streaming only*. Seeky do
 | 🪟 **Mini player** | Always-on-top compact controls. |
 | ↔️ **Crossfade & visualizer** | Smooth transitions and a real-time visualizer. |
 | 🔌 **Plugins** | Extend Seeky with plugins. [See what's available](#-plugins). |
-| 🍿 **Anime & movie search** | A plugin that lets you search anime and movies without leaving the app. |
+| 🍿 **Anime & movie search** | Plugins that let you search, watch and download anime and movies without leaving the app. |
 
 ### 🎨 11 Hand-Crafted Themes
 
@@ -110,12 +124,25 @@ Every theme is hand-crafted, not just a color swap.
 
 ## 🔌 Plugins
 
-Seeky now supports plugins, so the app can do more than play music.
+Seeky supports plugins, so the app can do more than play music.
 
 | Plugin | What it does |
 |---|---|
-| 🍿 **Anime & movie search** | Search anime and movies right inside Seeky. |
+| 🎌 **Seeky Anime** | Browse, search, stream and download anime with SUB/DUB, subtitles, My List and an offline library. |
+| 🍿 **Movie search** | Search movies right inside Seeky. |
 | 🎮 **Gamer Mode** | Built in. Auto-ducks music volume when game audio kicks in. |
+
+<div align="center">
+
+| Anime: Browse & Discover | Anime: Detail & Episodes |
+|:------------------------:|:------------------------:|
+| ![Anime home](assets/screenshots/plugins/anime-home.png) | ![Anime detail](assets/screenshots/plugins/anime-detail.png) |
+
+| Anime: Player | Movie Search |
+|:-------------:|:------------:|
+| ![Anime player](assets/screenshots/plugins/anime-player.png) | ![Movie search](assets/screenshots/plugins/movie-search.png) |
+
+</div>
 
 More plugins and a plugin marketplace are on the [roadmap](#%EF%B8%8F-roadmap).
 
@@ -125,26 +152,52 @@ More plugins and a plugin marketplace are on the [roadmap](#%EF%B8%8F-roadmap).
 
 Grab the latest build from the [Releases page](https://github.com/tarun922/seeky/releases/latest).
 
-### Windows
-1. Download the `.exe` installer
+| Platform | File | Quick install |
+|---|---|---|
+| 🪟 **Windows** | `Seeky-Setup-x.x.x.exe` | [Jump to steps](#-windows-recommended) |
+| 🍎 **macOS** | `.dmg` or `.zip` | [Jump to steps](#-macos) |
+| 🐧 **Linux (any)** | `.AppImage` | [Jump to steps](#-linux) |
+| 🐧 **Debian / Ubuntu** | `.deb` | [Jump to steps](#-linux) |
+| 🎩 **Fedora / RHEL** | `.rpm` | [Jump to steps](#-linux) |
+| 🏹 **Arch Linux** | `.pacman` | [Jump to steps](#-linux) |
+
+### 🪟 Windows (recommended)
+1. Download `Seeky-Setup-x.x.x.exe`
 2. Run it. Done.
 
-### macOS
+### 🍎 macOS
+**DMG**
 1. Download the `.dmg`
 2. Drag Seeky to Applications
 3. First launch: right-click → **Open** to get past Gatekeeper
 
-### Linux
+**ZIP**
+1. Download the `.zip` and unzip it
+2. Move `Seeky.app` to Applications
+3. First launch: right-click → **Open**
 
-**AppImage**
+### 🐧 Linux
+
+**AppImage** (works on any distro)
 ```bash
 chmod +x Seeky-x.x.x.AppImage
 ./Seeky-x.x.x.AppImage
 ```
 
-**deb**
+**Debian / Ubuntu (`.deb`)**
 ```bash
 sudo dpkg -i seeky_x.x.x_amd64.deb
+```
+
+**Fedora / RHEL (`.rpm`)**
+```bash
+sudo dnf install ./seeky-x.x.x.x86_64.rpm
+# or: sudo rpm -i seeky-x.x.x.x86_64.rpm
+```
+
+**Arch Linux (`.pacman`)**
+```bash
+sudo pacman -U seeky-x.x.x.pacman
 ```
 
 > Seeky checks for updates on launch and installs them silently.
@@ -193,7 +246,7 @@ Have an idea? [Open an issue](https://github.com/tarun922/seeky/issues) or sugge
 Yes. No ads, no subscription, no account needed for core features.
 
 **Does it work offline?**
-Fully, for local files. YouTube playback and Spotify import need internet.
+Fully, for local files. Downloaded anime episodes also play offline. YouTube playback, Spotify import and anime streaming need internet.
 
 **Is my data private?**
 Seeky doesn't send your library or listening data anywhere. Song ID and Discord RPC only activate when you enable them.
