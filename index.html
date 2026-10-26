@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seeky · The music player that actually gets you</title>
+<meta name="description" content="Seeky is a free desktop music player for local files, YouTube playlists and Spotify imports. Smart Feed, live lyrics, 11 themes. No ads, no account.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══ SEEKY THEME TOKENS (mirrors themes.css; the radios below switch them with :has, no JS) ═══ */
+:root{
+  --ease-expo:cubic-bezier(.16,1,.3,1);--ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --t-fast:140ms;--t-mid:280ms;--t-slow:480ms;
+  /* default: Midnight Aurora */
+  --bg-outer:#020408;--bg-app:#080D18;--sb:rgba(15,20,35,.92);--bd:rgba(139,92,246,.15);
+  --tx:#E0E7FF;--ac:#8B5CF6;--act:#fff;--btn:rgba(20,28,52,.9);--btnt:#E0E7FF;
+  --pl:rgba(10,16,30,.9);--arc:#06B6D4;--blur:blur(20px);--bw:1px;--hs:0 4px 24px -8px rgba(0,0,0,.3);
+  --mut:color-mix(in srgb,var(--tx) 56%,transparent);
+  --soft:color-mix(in srgb,var(--ac) 14%,transparent);
+  --card:color-mix(in srgb,var(--tx) 5%,transparent);
+  --cardb:color-mix(in srgb,var(--tx) 11%,transparent);
+}
+html:has(#t1:checked){--bg-outer:#000;--bg-app:#0D0D0D;--sb:rgba(20,20,20,.9);--bd:rgba(0,230,118,.12);--tx:#C8FAE0;--ac:#00E676;--act:#002a14;--btn:#00E676;--btnt:#001a0a;--pl:rgba(18,18,18,.92);--arc:#00E676}
+html:has(#t2:checked){--bg-outer:#0a0808;--bg-app:#141010;--sb:rgba(24,18,18,.92);--bd:rgba(255,87,34,.12);--tx:#F5E6E0;--ac:#FF5722;--act:#fff;--btn:#FF5722;--btnt:#fff;--pl:rgba(20,14,12,.9);--arc:#FF5722}
+html:has(#t3:checked){--bg-outer:#dde8f0;--bg-app:#F0F6FC;--sb:rgba(255,255,255,.72);--bd:rgba(125,211,252,.35);--tx:#1E293B;--ac:#38BDF8;--act:#0c4a6e;--btn:#0F172A;--btnt:#F0F9FF;--pl:rgba(255,255,255,.75);--arc:#38BDF8}
+html:has(#t4:checked){--bg-outer:#2c1f0e;--bg-app:#FAFAF9;--sb:rgba(245,245,244,.85);--bd:rgba(217,119,6,.2);--tx:#292524;--ac:#D97706;--act:#fff;--btn:#292524;--btnt:#FAFAF9;--pl:rgba(245,245,244,.85);--arc:#D97706;--blur:blur(16px)}
+html:has(#t5:checked){--bg-outer:#2a2060;--bg-app:#FAFAFF;--sb:rgba(243,240,248,.85);--bd:rgba(192,132,252,.25);--tx:#312E81;--ac:#A855F7;--act:#fff;--btn:#312E81;--btnt:#F5F3FF;--pl:rgba(243,240,248,.82);--arc:#A855F7}
+html:has(#t6:checked){--bg-outer:#0e0a1a;--bg-app:#1a1030;--sb:rgba(30,18,52,.97);--bd:#f7c948;--tx:#fff9e6;--ac:#f7c948;--act:#1a1030;--btn:#f7c948;--btnt:#1a1030;--pl:rgba(30,18,52,.97);--arc:#ff4f7b;--bw:2.5px;--hs:4px 4px 0 #f7c948}
+html:has(#t7:checked){--bg-outer:#ffe4f0;--bg-app:#fff8fc;--sb:rgba(255,255,255,.97);--bd:#1a1030;--tx:#1a1030;--ac:#ff4f7b;--act:#fff;--btn:#1a1030;--btnt:#fff8fc;--pl:rgba(255,255,255,.97);--arc:#ff4f7b;--bw:2.5px;--hs:4px 4px 0 #1a1030}
+html:has(#t8:checked){--bg-outer:#0d0610;--bg-app:#150c1a;--sb:rgba(28,14,36,.95);--bd:rgba(255,110,180,.18);--tx:#fce7f3;--ac:#FF6EB4;--act:#2a0a1c;--btn:rgba(34,16,46,.95);--btnt:#fce7f3;--pl:rgba(18,10,24,.92);--arc:#FF6EB4}
+html:has(#t9:checked){--bg-outer:#f9d0e0;--bg-app:#fff5f9;--sb:rgba(255,255,255,.82);--bd:rgba(244,114,182,.28);--tx:#5b1d44;--ac:#F472B6;--act:#fff;--btn:#5b1d44;--btnt:#fff5f9;--pl:rgba(255,255,255,.82);--arc:#F472B6}
+html:has(#t10:checked){--bg-outer:#000;--bg-app:transparent;--sb:rgba(255,255,255,.07);--bd:rgba(255,255,255,.15);--tx:rgba(255,255,255,.93);--ac:#a5f3fc;--act:#04282e;--btn:rgba(255,255,255,.14);--btnt:#fff;--pl:rgba(0,0,0,.22);--arc:#a5f3fc;--blur:blur(32px) saturate(1.8)}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;color-scheme:normal}
+body{
+  background-color:var(--bg-outer);
+  background-image:
+    radial-gradient(ellipse at 20% 50%,color-mix(in srgb,var(--ac) 10%,transparent),transparent 60%),
+    radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--arc) 8%,transparent),transparent 50%),
+    radial-gradient(ellipse at 50% 100%,color-mix(in srgb,var(--ac) 5%,transparent),transparent 50%);
+  display:flex;justify-content:center;align-items:center;min-height:100vh;
+  font-family:'Nunito','Segoe UI',sans-serif;color:var(--tx);
+  transition:background-color var(--t-slow) ease;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ── App shell ── */
+.app-container{
+  width:97vw;height:94vh;background-color:var(--bg-app);border-radius:52px;padding:18px 20px 14px;
+  display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.07),0 40px 100px -20px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.07);
+  transition:background-color var(--t-slow) ease;
+}
+.app-container::before{content:'';position:absolute;inset:0;border-radius:52px;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 65% 0%,color-mix(in srgb,var(--ac) 7%,transparent),transparent 55%),
+             radial-gradient(ellipse at 10% 90%,color-mix(in srgb,var(--arc) 4%,transparent),transparent 45%)}
+/* Crystal: animated glass backdrop (the app uses a live background) */
+html:has(#t10:checked) .app-container{background:linear-gradient(125deg,#0b1a3a,#2a1457,#0a4a5c,#1b0f40);background-size:300% 300%;animation:crystal 16s ease infinite}
+@keyframes crystal{50%{background-position:100% 50%}}
+
+/* Titlebar traffic lights */
+.wc-cluster{position:absolute;top:13px;left:22px;display:flex;gap:8px;z-index:20}
+.wc-btn{width:13px;height:13px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.16) inset}
+.wc-btn:nth-child(1){background:#FF5F57}.wc-btn:nth-child(2){background:#FFBD2E}.wc-btn:nth-child(3){background:#28C840}
+
+/* ── Top bar ── */
+.top-bar{display:flex;align-items:center;gap:14px;flex-shrink:0;height:84px;position:relative;z-index:10;margin-top:8px}
+.logo-circle-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
+.logo-circle-wrap::before{content:'';position:absolute;inset:-10px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--arc) 25%,transparent),transparent 68%);opacity:.8}
+.arc-ring{position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);z-index:3;overflow:visible;transform:rotate(-90deg)}
+.arc-track{stroke:color-mix(in srgb,var(--arc) 18%,transparent);stroke-width:3.5;fill:none}
+.arc-progress{stroke:var(--arc);stroke-width:3.5;fill:none;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;filter:drop-shadow(0 0 5px var(--arc));animation:arc 24s linear infinite}
+@keyframes arc{to{stroke-dashoffset:0}}
+.logo-circle{width:80px;height:80px;border-radius:50%;background:var(--sb);border:1.5px solid var(--bd);overflow:hidden;position:relative;z-index:2;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 8px 28px -6px rgba(0,0,0,.55);transition:transform var(--t-fast) var(--ease-spring)}
+.logo-circle:hover{transform:scale(1.05)}
+.logo-circle img{width:100%;height:100%;object-fit:cover}
+
+.search-bar{flex:1;max-width:440px;background:var(--sb);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:var(--bw) solid var(--bd);border-radius:99px;height:42px;display:flex;align-items:center;padding:0 18px;gap:10px;font-weight:600;font-size:.9rem;color:color-mix(in srgb,var(--tx) 40%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 12px -4px rgba(0,0,0,.2)}
+.search-bar b{color:var(--ac);font-weight:700}
+.top-bar .sp{flex:1}
+.settings-btn{background:var(--btn);color:var(--btnt);border:var(--bw) solid color-mix(in srgb,var(--ac) 20%,transparent);border-radius:99px;padding:11px 22px;font:800 .76rem 'Nunito',sans-serif;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),var(--hs);transition:transform var(--t-fast) var(--ease-spring),opacity var(--t-fast)}
+.settings-btn:hover{opacity:.88;transform:translateY(-1px)}
+
+/* ── Three-column layout ── */
+.main-layout{display:flex;gap:10px;flex:1;min-height:0;overflow:hidden;position:relative;z-index:1}
+.sidebar,.right-panel{background:var(--sb);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:var(--bw) solid var(--bd);border-radius:32px;flex-shrink:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),var(--hs)}
+.sidebar{width:176px;padding:22px 14px;gap:2px}
+.sidebar-section-label{font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.34;padding:0 10px 5px}
+.sidebar-nav-item{font-size:.87rem;font-weight:600;padding:9px 10px;border-radius:14px;display:flex;align-items:center;gap:9px;transition:background var(--t-fast),color var(--t-fast),transform var(--t-fast)}
+.sidebar-nav-item:hover{background:var(--soft)}
+.sidebar-nav-item:active{transform:scale(.97)}
+.sidebar-nav-item.active{background:var(--soft);color:var(--ac);font-weight:700}
+.sidebar-divider{height:1px;background:var(--bd);margin:8px 6px}
+.sidebar-repo-notice{margin:auto 4px 4px;padding:9px 10px;border-radius:12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);font-size:.67rem;font-weight:700;display:block;transition:background .15s}
+.sidebar-repo-notice:hover{background:rgba(239,68,68,.16)}
+
+.content-area{flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;padding:2px 6px 30px 2px;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ac) 45%,transparent) transparent}
+.screen{animation:screenIn var(--t-mid) var(--ease-expo)}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}}
+
+.right-panel{width:212px;padding:18px 14px;gap:10px}
+.right-panel h4{font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.4;padding:0 4px}
+.q-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:14px;background:var(--card);border:1px solid var(--cardb);opacity:0;transform:translateX(18px);animation:slide .7s var(--ease-expo) forwards}
+.q-item:nth-of-type(1){animation-delay:.2s;border-color:color-mix(in srgb,var(--ac) 45%,transparent);background:var(--soft)}
+.q-item:nth-of-type(2){animation-delay:.7s}.q-item:nth-of-type(3){animation-delay:1.2s}.q-item:nth-of-type(4){animation-delay:1.7s}.q-item:nth-of-type(5){animation-delay:2.2s}.q-item:nth-of-type(6){animation-delay:2.7s}
+@keyframes slide{to{opacity:1;transform:none}}
+.q-art{width:34px;height:34px;border-radius:9px;flex-shrink:0;background:linear-gradient(135deg,var(--ac),var(--arc))}
+.q-item:nth-of-type(n+2) .q-art{filter:hue-rotate(calc(var(--i,1)*38deg)) saturate(.85);opacity:.85}
+.q-item div{min-width:0;font-size:.78rem;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-item small{display:block;font-size:.66rem;font-weight:600;color:var(--mut)}
+
+/* ── Player bar ── */
+.player-bar{height:62px;background:var(--pl);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-radius:31px;border:var(--bw) solid var(--bd);display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;position:relative;z-index:2;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),var(--hs)}
+.pb-info{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.pb-info img{width:38px;height:38px;border-radius:10px}
+.pb-info b{display:block;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-info small{color:var(--mut);font-weight:600;font-size:.72rem}
+.pb-ctl{display:flex;align-items:center;gap:14px;flex:1.4}
+.pb-ctl span{opacity:.7;font-size:1rem}
+.play{width:38px;height:38px;border-radius:50%;background:var(--ac);color:var(--act);display:grid;place-items:center;font-size:.9rem;box-shadow:0 4px 14px -4px color-mix(in srgb,var(--ac) 60%,transparent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--ac) 18%,transparent)}}
+.bar{flex:1;height:5px;border-radius:9px;background:color-mix(in srgb,var(--tx) 14%,transparent);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--arc));border-radius:9px;animation:prog 24s linear infinite}
+@keyframes prog{to{width:100%}}
+.pb-eq{display:flex;gap:3px;align-items:flex-end;height:20px;flex:.4;justify-content:flex-end}
+.pb-eq i{width:4px;border-radius:3px;background:var(--ac);animation:eq 1s ease-in-out infinite alternate}
+.pb-eq i:nth-child(2){animation-duration:.7s}.pb-eq i:nth-child(3){animation-duration:1.3s}.pb-eq i:nth-child(4){animation-duration:.9s}.pb-eq i:nth-child(5){animation-duration:1.1s}
+@keyframes eq{from{height:4px}to{height:20px}}
+
+/* ═══ CONTENT ═══ */
+section{padding:26px 8px 18px}
+.hero{padding-top:14px;text-align:left}
+.pill{display:inline-block;padding:5px 14px;border-radius:99px;font-size:.74rem;font-weight:800;letter-spacing:.04em;color:var(--ac);background:var(--soft);border:1px solid color-mix(in srgb,var(--ac) 30%,transparent);margin-bottom:16px}
+h1{font-size:clamp(2.1rem,4.6vw,3.7rem);line-height:1.06;font-weight:900;letter-spacing:-1px}
+.grad{background:linear-gradient(100deg,var(--ac),var(--arc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:560px;margin:16px 0 24px;color:var(--mut);font-weight:600;font-size:1.03rem;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;font-weight:800;font-size:.88rem;border:var(--bw) solid var(--cardb);background:var(--card);transition:transform var(--t-fast) var(--ease-spring),box-shadow var(--t-fast)}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ac);color:var(--act);border-color:transparent;box-shadow:0 10px 30px -10px color-mix(in srgb,var(--ac) 80%,transparent),var(--hs)}
+.os{margin-top:14px;font-size:.78rem;font-weight:700;color:var(--mut)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.shot{border-radius:24px;overflow:hidden;border:var(--bw) solid var(--bd);background:var(--card);box-shadow:var(--hs);transition:transform .4s var(--ease-expo)}
+.shot:hover{transform:translateY(-4px)}
+.shot figcaption{padding:10px 16px;font-size:.74rem;font-weight:700;color:var(--mut);border-top:1px solid var(--cardb)}
+
+.eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-.5px;margin:6px 0 8px;line-height:1.15}
+.sub{color:var(--mut);font-weight:600;max-width:600px;margin-bottom:20px}
+
+.spot{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;padding:30px;border-radius:30px;background:linear-gradient(135deg,var(--soft),color-mix(in srgb,var(--arc) 8%,transparent));border:var(--bw) solid color-mix(in srgb,var(--ac) 35%,var(--bd));box-shadow:var(--hs)}
+.spot h2{margin-top:6px}.spot .sub{margin:0}
+.queue{display:grid;gap:8px}
+.track{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:var(--card);border:1px solid var(--cardb);font-weight:700;font-size:.88rem;opacity:0;transform:translateX(20px);animation:slide .7s var(--ease-expo) forwards}
+.track:nth-child(1){animation-delay:.1s;border-color:var(--ac);background:var(--soft)}
+.track:nth-child(2){animation-delay:.6s}.track:nth-child(3){animation-delay:1.1s}.track:nth-child(4){animation-delay:1.6s}.track:nth-child(5){animation-delay:2.1s}
+.track .dot{width:36px;height:36px;border-radius:10px;flex:none;background:linear-gradient(135deg,var(--ac),var(--arc))}
+.track:nth-child(n+2) .dot{filter:hue-rotate(calc(var(--i,1)*40deg)) saturate(.85)}
+.track small{display:block;color:var(--mut);font-weight:600;font-size:.72rem}
+.track em{margin-left:auto;font-style:normal;font-size:.68rem;font-weight:800;color:var(--ac)}
+
+/* feature rows (search-list-row look) */
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+.search-list-row{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:14px;border:1px solid transparent;min-height:66px;transition:background var(--t-fast),transform var(--t-fast) var(--ease-spring),border-color var(--t-fast)}
+.search-list-row:hover{background:var(--soft);transform:translateX(3px);border-color:color-mix(in srgb,var(--ac) 18%,transparent)}
+.slr-art{width:46px;height:46px;border-radius:11px;flex-shrink:0;display:grid;place-items:center;font-size:1.3rem;background:var(--soft);border:1px solid var(--cardb);box-shadow:0 2px 10px -2px rgba(0,0,0,.25);transition:transform var(--t-fast) var(--ease-spring)}
+.search-list-row:hover .slr-art{transform:scale(1.08)}
+.slr-info{min-width:0}
+.slr-title{font-size:.9rem;font-weight:800}
+.slr-meta{font-size:.76rem;font-weight:600;color:var(--mut);margin-top:2px;line-height:1.4}
+kbd{padding:0 7px;border-radius:6px;border:1px solid var(--cardb);background:var(--card);font:inherit;font-size:.9em}
+
+/* themes */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;position:relative}
+.chips input{position:absolute;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.chips label{cursor:pointer;padding:8px 16px;border-radius:99px;font-size:.78rem;font-weight:800;background:var(--card);border:var(--bw) solid var(--cardb);transition:transform var(--t-fast) var(--ease-spring),background var(--t-fast)}
+.chips label:hover{transform:translateY(-2px)}
+.chips input:checked+label{background:var(--ac);color:var(--act);border-color:transparent;box-shadow:var(--hs)}
+.chips input:focus-visible+label{outline:2px solid var(--ac);outline-offset:2px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.theme{border-radius:20px;overflow:hidden;border:var(--bw) solid var(--bd);background:var(--card);transition:transform .35s var(--ease-expo),border-color .2s}
+.theme:hover{transform:translateY(-5px);border-color:var(--ac)}
+.theme img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.theme div{padding:9px 14px;font-size:.8rem;font-weight:800}
+.theme.big{grid-column:1/-1;display:grid;grid-template-columns:1.5fr 1fr;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,#a5f3fc 12%,transparent),var(--soft))}
+.theme.big div{padding:22px;font-weight:600;color:var(--mut);font-size:.9rem}
+.theme.big strong{display:block;font-size:1.25rem;color:var(--tx);margin-bottom:6px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.step{padding:20px;border-radius:22px;background:var(--card);border:var(--bw) solid var(--cardb);font-size:.86rem;font-weight:600;color:var(--mut)}
+.step h3{color:var(--tx);font-size:1rem;margin-bottom:8px}
+.step ol{padding-left:18px}
+code{padding:1px 7px;border-radius:6px;background:var(--soft);color:var(--ac);font-size:.88em;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:10px}
+.tag{padding:8px 16px;border-radius:99px;border:1px dashed color-mix(in srgb,var(--tx) 35%,transparent);color:var(--mut);font-size:.8rem;font-weight:700}
+details{border:var(--bw) solid var(--cardb);background:var(--card);border-radius:18px;padding:14px 18px;margin-bottom:10px;max-width:760px}
+details[open]{border-color:color-mix(in srgb,var(--ac) 50%,transparent)}
+summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;font-size:.92rem}
+summary::after{content:"+";color:var(--ac);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:8px;color:var(--mut);font-weight:600;font-size:.88rem}
+.foot{padding:20px 8px 0;font-size:.76rem;font-weight:700;color:var(--mut)}
+.foot a:hover{color:var(--ac)}
+
+/* ── Responsive ── */
+@media(max-width:1100px){.right-panel{display:none}}
+.mnav{display:none}
+@media(max-width:860px){
+  html,body{height:100dvh;min-height:0}
+  body{min-height:100dvh}
+  .sidebar,.wc-cluster{display:none}
+  .app-container{width:100vw;height:100dvh;border-radius:0;gap:8px;padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
+  .app-container::before{border-radius:0}
+  .top-bar{height:64px;margin-top:0;gap:10px}
+  .logo-circle-wrap,.logo-circle{width:52px;height:52px}
+  .logo-circle-wrap::before{inset:-6px}
+  .arc-ring{inset:-5px;width:calc(100% + 10px);height:calc(100% + 10px)}
+  .arc-track,.arc-progress{stroke-width:4}
+  .search-bar{display:none}
+  .top-bar .sp{display:block}
+  .settings-btn{padding:10px 18px}
+  /* section nav replaces the sidebar */
+  .mnav{display:flex;gap:8px;overflow-x:auto;flex-shrink:0;padding:2px 2px 4px;scrollbar-width:none;position:relative;z-index:10}
+  .mnav::-webkit-scrollbar{display:none}
+  .mnav a{flex:none;padding:8px 16px;border-radius:99px;font-size:.8rem;font-weight:800;background:var(--sb);border:var(--bw) solid var(--bd);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
+  .mnav a.active{background:var(--ac);color:var(--act);border-color:transparent}
+  .main-layout{border-radius:24px}
+  .content-area{padding:0 2px 16px;-webkit-overflow-scrolling:touch}
+  section{padding:20px 4px 12px;scroll-margin-top:4px}
+  .rows,.shots,.spot,.steps,.theme.big{grid-template-columns:1fr}
+  .spot{padding:20px;border-radius:24px}
+  .shot{border-radius:18px}
+  .player-bar{height:54px;padding:0 14px;gap:10px;border-radius:27px}
+  .pb-info img{width:32px;height:32px}
+  .pb-eq,.pb-ctl>span:not(.play){display:none}
+  .pb-ctl{gap:10px;flex:1}
+  .play{width:34px;height:34px}
+  .pb-info{flex:1.2}
+}
+@media(max-width:520px){
+  .cta .btn{flex:1 1 100%;justify-content:center}
+  .lead{font-size:.95rem}
+  .gallery{grid-template-columns:1fr 1fr;gap:8px}
+  .theme.big{grid-column:1/-1}
+  .theme div{padding:8px 10px;font-size:.74rem}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:-4px;padding:0 4px 6px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chips label{white-space:nowrap}
+  .pb-info small{display:none}
+  .search-list-row{min-height:0}
+  .foot{padding-bottom:8px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.track,.q-item{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="app-container">
+  <div class="wc-cluster" aria-hidden="true"><span class="wc-btn"></span><span class="wc-btn"></span><span class="wc-btn"></span></div>
+
+  <header class="top-bar">
+    <div class="logo-circle-wrap">
+      <svg class="arc-ring" viewBox="0 0 96 96" aria-hidden="true"><circle class="arc-track" cx="48" cy="48" r="46"/><circle class="arc-progress" cx="48" cy="48" r="46"/></svg>
+      <div class="logo-circle"><img src="assets/icon.png" alt="Seeky"></div>
+    </div>
+    <div class="search-bar" aria-hidden="true">🔍 <span>Play one song, <b>let Seeky do the rest</b></span></div>
+    <span class="sp"></span>
+    <a class="settings-btn" href="https://github.com/tarun922/seeky/releases/latest">Download</a>
+  </header>
+
+  <nav class="mnav" aria-label="Sections">
+    <a class="active" href="#home">Home</a><a href="#feed">Smart Feed</a><a href="#features">Features</a><a href="#themes">Themes</a><a href="#install">Install</a><a href="#faq">FAQ</a><a href="https://discord.gg/Tjv3pa3PU9">Discord</a>
+  </nav>
+
+  <div class="main-layout">
+    <nav class="sidebar" aria-label="Sections">
+      <div class="sidebar-section-label">Menu</div>
+      <a class="sidebar-nav-item active" href="#home">🏠 Home</a>
+      <a class="sidebar-nav-item" href="#feed">🌊 Smart Feed</a>
+      <a class="sidebar-nav-item" href="#features">✨ Features</a>
+      <a class="sidebar-nav-item" href="#themes">🎨 Themes</a>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section-label">Get Seeky</div>
+      <a class="sidebar-nav-item" href="#install">📦 Install</a>
+      <a class="sidebar-nav-item" href="#roadmap">🗺️ Roadmap</a>
+      <a class="sidebar-nav-item" href="#faq">❓ FAQ</a>
+      <div class="sidebar-divider"></div>
+      <a class="sidebar-nav-item" href="https://discord.gg/Tjv3pa3PU9">💬 Discord</a>
+      <a class="sidebar-nav-item" href="https://github.com/tarun922/seeky">⭐ GitHub</a>
+      <a class="sidebar-repo-notice" href="https://github.com/tarun922/seeky/releases/latest">🔴 Official releases, only from this repo</a>
+    </nav>
+
+    <main class="content-area">
+      <div class="screen">
+        <section class="hero" id="home">
+          <span class="pill">Free · No ads · No account</span>
+          <h1>The music player<br><span class="grad">that actually gets you.</span></h1>
+          <p class="lead">Local files, YouTube playlists and Spotify imports in one gorgeous desktop app. Play one song and let Seeky do the rest.</p>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/tarun922/seeky/releases/latest">⬇ Download Seeky</a>
+            <a class="btn" href="https://discord.gg/Tjv3pa3PU9">💬 Join Discord</a>
+            <a class="btn" href="https://github.com/tarun922/seeky">⭐ Star on GitHub</a>
+          </div>
+          <p class="os">Windows · macOS · Linux</p>
+          <div class="shots">
+            <figure class="shot"><img src="assets/screenshots/home.png" alt="Seeky home screen" loading="lazy"><figcaption>Home</figcaption></figure>
+            <figure class="shot"><img src="assets/screenshots/nowplaying.png" alt="Seeky Now Playing with live lyrics" loading="lazy"><figcaption>Now Playing · live synced lyrics</figcaption></figure>
+          </div>
+        </section>
+
+        <section id="feed">
+          <div class="spot">
+            <div>
+              <span class="eyebrow">Smart Feed</span>
+              <h2>Press play once.<br><span class="grad">Never curate again.</span></h2>
+              <p class="sub">Pick a single song and the feed generator builds an endless queue from it. No playlists to make, no decisions to keep making.</p>
+            </div>
+            <div class="queue" aria-hidden="true">
+              <div class="track"><span class="dot"></span><div>Your first pick<small>You chose this one</small></div><em>▶ PLAYING</em></div>
+              <div class="track" style="--i:1"><span class="dot"></span><div>Up next<small>Chosen by Seeky</small></div><em>FEED</em></div>
+              <div class="track" style="--i:2"><span class="dot"></span><div>Then this<small>Chosen by Seeky</small></div><em>FEED</em></div>
+              <div class="track" style="--i:3"><span class="dot"></span><div>And this<small>Chosen by Seeky</small></div><em>FEED</em></div>
+              <div class="track" style="--i:4"><span class="dot"></span><div>And on it goes<small>Chosen by Seeky</small></div><em>FEED</em></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features">
+          <span class="eyebrow">Features</span>
+          <h2>Everything in one place.</h2>
+          <p class="sub">Most music apps make you pick a lane. Seeky does local and streaming, free, with your data staying on your machine.</p>
+          <div class="rows">
+            <div class="search-list-row"><div class="slr-art">🎵</div><div class="slr-info"><div class="slr-title">Play everything</div><div class="slr-meta">Local files, YouTube and Spotify-imported playlists in one library. mp3, flac, opus, ogg, wav and more.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">📥</div><div class="slr-info"><div class="slr-title">Spotify import</div><div class="slr-meta">Bring your playlists over, subscription or not.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">📺</div><div class="slr-info"><div class="slr-title">YouTube playlists</div><div class="slr-meta">Paste a URL and play it like a local playlist, with caching for skip-free listening.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">🎤</div><div class="slr-info"><div class="slr-title">Live synced lyrics</div><div class="slr-meta">Scrolling lyrics on the Now Playing screen.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">🕵️</div><div class="slr-info"><div class="slr-title">Song ID</div><div class="slr-meta">Press <kbd>R</kbd> anywhere. Seeky listens for 8 seconds and identifies the track via ACRCloud.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">📊</div><div class="slr-info"><div class="slr-title">Wrapped, all year</div><div class="slr-meta">Top artists, tracks, streaks and total hours. Not just December.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">🎮</div><div class="slr-info"><div class="slr-title">Gamer Mode</div><div class="slr-meta">Auto-ducks music when game audio kicks in.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">💬</div><div class="slr-info"><div class="slr-title">Discord Rich Presence</div><div class="slr-meta">Song, artist, album art and play state on your profile.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">📱</div><div class="slr-info"><div class="slr-title">Mobile remote</div><div class="slr-meta">Open Seeky's remote URL on your phone (same Wi-Fi) to control playback.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">🪟</div><div class="slr-info"><div class="slr-title">Mini player</div><div class="slr-meta">Always-on-top compact controls.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">↔️</div><div class="slr-info"><div class="slr-title">Crossfade &amp; visualizer</div><div class="slr-meta">Smooth transitions and a real-time visualizer.</div></div></div>
+            <div class="search-list-row"><div class="slr-art">🔌</div><div class="slr-info"><div class="slr-title">Plugin system</div><div class="slr-meta">Gamer Mode ships built in. Community plugins are on the way.</div></div></div>
+          </div>
+        </section>
+
+        <section id="themes">
+          <span class="eyebrow">Themes</span>
+          <h2>11 hand-crafted themes.</h2>
+          <p class="sub">This whole page runs on Seeky's real theme tokens. Pick one and watch it change, just like in the app.</p>
+          <div class="chips" role="radiogroup" aria-label="Preview a theme">
+            <input type="radio" name="t" id="t0" checked><label for="t0">🌌 Midnight Aurora</label>
+            <input type="radio" name="t" id="t1"><label for="t1">🕳️ Cosmic Void</label>
+            <input type="radio" name="t" id="t2"><label for="t2">🔴 Molten Obsidian</label>
+            <input type="radio" name="t" id="t3"><label for="t3">🔵 Powder Blue</label>
+            <input type="radio" name="t" id="t4"><label for="t4">🌅 Golden Hour</label>
+            <input type="radio" name="t" id="t5"><label for="t5">⬜ Arctic Pearl</label>
+            <input type="radio" name="t" id="t6"><label for="t6">🖼️ Toon Dark</label>
+            <input type="radio" name="t" id="t7"><label for="t7">🎉 Toob Pop</label>
+            <input type="radio" name="t" id="t8"><label for="t8">🌸 Cute Dark</label>
+            <input type="radio" name="t" id="t9"><label for="t9">🍬 Cute Light</label>
+            <input type="radio" name="t" id="t10"><label for="t10">💎 Crystal</label>
+          </div>
+          <div class="gallery">
+            <div class="theme big"><img src="assets/screenshots/themes/11.png" alt="Crystal theme" loading="lazy"><div><strong>💎 Crystal</strong>Seeky's signature theme, with a custom live animated background that reacts to your music in real time.</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/1.png" alt="Midnight Aurora" loading="lazy"><div>🌌 Midnight Aurora</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/2.png" alt="Cosmic Void" loading="lazy"><div>🕳️ Cosmic Void</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/3.png" alt="Molten Obsidian" loading="lazy"><div>🔴 Molten Obsidian</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/4.png" alt="Powder Blue" loading="lazy"><div>🔵 Powder Blue</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/5.png" alt="Golden Hour" loading="lazy"><div>🌅 Golden Hour</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/6.png" alt="Arctic Pearl" loading="lazy"><div>⬜ Arctic Pearl</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/7.png" alt="Toon Dark" loading="lazy"><div>🖼️ Toon Dark</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/8.png" alt="Toob Pop" loading="lazy"><div>🎉 Toob Pop</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/9.png" alt="Cute Dark" loading="lazy"><div>🌸 Cute Dark</div></div>
+            <div class="theme"><img src="assets/screenshots/themes/10.png" alt="Cute Light" loading="lazy"><div>🍬 Cute Light</div></div>
+          </div>
+        </section>
+
+        <section id="install">
+          <span class="eyebrow">Install</span>
+          <h2>Up and running in a minute.</h2>
+          <p class="sub">Grab the latest build from <a href="https://github.com/tarun922/seeky/releases/latest" style="color:var(--ac);font-weight:800">Releases</a>. Seeky updates itself silently after that.</p>
+          <div class="steps">
+            <div class="step"><h3>🪟 Windows</h3><ol><li>Download the <code>.exe</code></li><li>Run it. Done.</li></ol></div>
+            <div class="step"><h3>🍎 macOS</h3><ol><li>Download the <code>.dmg</code></li><li>Drag to Applications</li><li>First launch: right-click → Open</li></ol></div>
+            <div class="step"><h3>🐧 Linux</h3><ol><li>AppImage: <code>chmod +x</code>, then run</li><li>Or <code>dpkg -i</code> the <code>.deb</code></li></ol></div>
+          </div>
+        </section>
+
+        <section id="roadmap">
+          <span class="eyebrow">Roadmap</span>
+          <h2>What's coming next.</h2>
+          <p class="sub">Have an idea? Tell us on <a href="https://discord.gg/Tjv3pa3PU9" style="color:var(--ac);font-weight:800">Discord</a> or <a href="https://github.com/tarun922/seeky/issues" style="color:var(--ac);font-weight:800">open an issue</a>.</p>
+          <div class="tags"><span class="tag">Last.fm scrobbling</span><span class="tag">Equalizer</span><span class="tag">Sleep timer</span><span class="tag">Plugin marketplace</span><span class="tag">Collaborative playlists</span><span class="tag">Tidal / Apple Music import</span></div>
+        </section>
+
+        <section id="faq">
+          <span class="eyebrow">FAQ</span>
+          <h2>Good questions.</h2>
+          <details><summary>Is it really free?</summary><p>Yes. No ads, no subscription, and no account needed for core features.</p></details>
+          <details><summary>Does it work offline?</summary><p>Fully, for local files. YouTube playback and Spotify import need internet.</p></details>
+          <details><summary>Is my data private?</summary><p>Seeky doesn't send your library or listening data anywhere. Song ID and Discord RPC only activate when you enable them.</p></details>
+          <details><summary>Where's the source code?</summary><p>Seeky is currently closed-source. A plugin API and community extensions are planned.</p></details>
+        </section>
+
+        <p class="foot">Made with ❤️ and way too many late nights. · <a href="https://github.com/tarun922/seeky/issues">Report a bug</a> · <a href="https://github.com/tarun922/seeky/releases">Releases</a><br>Seeky is not affiliated with Spotify, YouTube, Discord, or ACRCloud.</p>
+      </div>
+    </main>
+
+    <aside class="right-panel" aria-hidden="true">
+      <h4>Up next</h4>
+      <div class="q-item"><span class="q-art"></span><div>Your first pick<small>Playing now</small></div></div>
+      <div class="q-item" style="--i:1"><span class="q-art"></span><div>Seeky's pick #1<small>Smart Feed</small></div></div>
+      <div class="q-item" style="--i:2"><span class="q-art"></span><div>Seeky's pick #2<small>Smart Feed</small></div></div>
+      <div class="q-item" style="--i:3"><span class="q-art"></span><div>Seeky's pick #3<small>Smart Feed</small></div></div>
+      <div class="q-item" style="--i:4"><span class="q-art"></span><div>Seeky's pick #4<small>Smart Feed</small></div></div>
+      <div class="q-item" style="--i:5"><span class="q-art"></span><div>…and on it goes<small>Smart Feed</small></div></div>
+    </aside>
+  </div>
+
+  <footer class="player-bar" aria-hidden="true">
+    <div class="pb-info"><img src="assets/icon.png" alt=""><div><b>Press play once.</b><small>Seeky · Smart Feed</small></div></div>
+    <div class="pb-ctl"><span>⏮</span><span class="play">▶</span><span>⏭</span><div class="bar"><i></i></div></div>
+    <div class="pb-eq"><i></i><i></i><i></i><i></i><i></i></div>
+  </footer>
+</div>
+</body>
+</html>
