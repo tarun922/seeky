@@ -14,6 +14,7 @@
 <br/>
 
 > Spotify imports. YouTube playlists. Local files. Live lyrics. Song ID. Discord RPC.
+> Plugins that search anime and movies.
 > All in one gorgeous desktop app. **Free, no ads, no account.**
 
 <br/>
@@ -21,6 +22,7 @@
 [**⬇️ Download**](https://github.com/tarun922/seeky/releases/latest) &nbsp;·&nbsp;
 [Installation](#-installation) &nbsp;·&nbsp;
 [Features](#-features) &nbsp;·&nbsp;
+[Plugins](#-plugins) &nbsp;·&nbsp;
 [Roadmap](#%EF%B8%8F-roadmap) &nbsp;·&nbsp;
 [Discord](https://discord.gg/Tjv3pa3PU9)
 
@@ -64,7 +66,8 @@ Most music apps make you pick a lane: *local only* or *streaming only*. Seeky do
 | 📱 **Mobile remote** | Open Seeky's remote URL on your phone (same Wi-Fi) to control playback. |
 | 🪟 **Mini player** | Always-on-top compact controls. |
 | ↔️ **Crossfade & visualizer** | Smooth transitions and a real-time visualizer. |
-| 🔌 **Plugin system** | Gamer Mode ships built in, with community plugins planned. |
+| 🔌 **Plugins** | Extend Seeky with plugins. [See what's available](#-plugins). |
+| 🍿 **Anime & movie search** | A plugin that lets you search anime and movies without leaving the app. |
 
 ### 🎨 11 Hand-Crafted Themes
 
@@ -91,6 +94,19 @@ Every theme is hand-crafted, not just a color swap.
 > 💎 **Crystal** is Seeky's signature theme, with a custom **live animated background** that reacts to your music in real time.
 
 </div>
+
+---
+
+## 🔌 Plugins
+
+Seeky now supports plugins, so the app can do more than play music.
+
+| Plugin | What it does |
+|---|---|
+| 🍿 **Anime & movie search** | Search anime and movies right inside Seeky. |
+| 🎮 **Gamer Mode** | Built in. Auto-ducks music volume when game audio kicks in. |
+
+More plugins and a plugin marketplace are on the [roadmap](#%EF%B8%8F-roadmap).
 
 ---
 
@@ -171,7 +187,7 @@ Fully, for local files. YouTube playback and Spotify import need internet.
 Seeky doesn't send your library or listening data anywhere. Song ID and Discord RPC only activate when you enable them.
 
 **Where's the source code?**
-Seeky is currently closed-source. A plugin API and community extensions are planned.
+Seeky is currently closed-source. Plugins are supported today, and a public plugin API and community extensions are planned.
 
 ---
 
